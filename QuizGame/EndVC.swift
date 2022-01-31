@@ -28,19 +28,19 @@ final class EndVC: UIViewController {
         successLabel.text = "Percentage success: \(formatter.string(from: NSNumber(value: percentValue)) ?? "-")"
         
         if percentValue >= 0.85 {
-            a.text = "A - Great result! Try another quiz!"
+            markLabel.text = "A - Great result! Try another quiz!"
         }
         else if percentValue < 0.85 && percentValue >= 0.70  {
-            a.text = "B - Good result! Try another quiz!"
+            markLabel.text = "B - Good result! Try another quiz!"
         }
         else if percentValue < 0.70 && percentValue >= 0.50  {
-            a.text = "C - Avarage result! Try another quiz!"
+            markLabel.text = "C - Avarage result! Try another quiz!"
         }
         else if percentValue < 0.50 && percentValue >= 0.28  {
-            a.text = "D - Not much result! Try another quiz!"
+            markLabel.text = "D - Not much result! Try another quiz!"
         }
         else if percentValue < 0.28 {
-            a.text = "F - Bad result! Try another quiz!"
+            markLabel.text = "F - Bad result! Try another quiz!"
         }
     }
     
@@ -55,7 +55,7 @@ final class EndVC: UIViewController {
         titleLabel.textAlignment = .center
         return titleLabel
     }()*/
-    
+
     private let scoreLabel: UILabel = {
         let scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,15 +78,15 @@ final class EndVC: UIViewController {
         return successLabel
     }()
     
-    private let a: UILabel = {
-        let a = UILabel()
-        a.translatesAutoresizingMaskIntoConstraints = false
-        a.numberOfLines = 0
-        a.font = .preferredFont(forTextStyle: .title2)
-        a.adjustsFontForContentSizeCategory = true
-        a.textColor = .label
-        a.textAlignment = .center
-        return a
+    private let markLabel: UILabel = {
+        let markLabel = UILabel()
+        markLabel.translatesAutoresizingMaskIntoConstraints = false
+        markLabel.numberOfLines = 0
+        markLabel.font = .preferredFont(forTextStyle: .title2)
+        markLabel.adjustsFontForContentSizeCategory = true
+        markLabel.textColor = .label
+        markLabel.textAlignment = .center
+        return markLabel
     }()
     
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ final class EndVC: UIViewController {
         //view.addSubview(titleLabel)
         view.addSubview(scoreLabel)
         view.addSubview(successLabel)
-        view.addSubview(a)
+        view.addSubview(markLabel)
         
         view.backgroundColor = .systemBackground
         
@@ -121,10 +121,10 @@ final class EndVC: UIViewController {
             successLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             successLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
 
-            a.topAnchor.constraint(equalTo: successLabel.bottomAnchor, constant: 10),
-            a.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            a.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            a.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
+            markLabel.topAnchor.constraint(equalTo: successLabel.bottomAnchor, constant: 10),
+            markLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            markLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            markLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
 
             
         ])
