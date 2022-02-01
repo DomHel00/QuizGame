@@ -132,14 +132,9 @@ final class EndVC: UIViewController {
         }
 
     }
-
-   
-
 }
 
 /*
- 
- 
  100% - 80% Výborný výkon. Zkus další quiz.
  <80% - 60 - Super výkon.
  <60% - 40 - Dobrý výkon.
