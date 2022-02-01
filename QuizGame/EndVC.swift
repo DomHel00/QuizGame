@@ -44,17 +44,6 @@ final class EndVC: UIViewController {
         }
     }
     
-    /*
-    private let titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Your result"
-        titleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 40)!)
-        titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.textColor = .systemOrange
-        titleLabel.textAlignment = .center
-        return titleLabel
-    }()*/
 
     private let scoreLabel: UILabel = {
         let scoreLabel = UILabel()
