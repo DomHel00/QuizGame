@@ -42,7 +42,7 @@ final class SettingsVC: UIViewController {
     //  MARK: - Life cycle functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,7 +68,8 @@ final class SettingsVC: UIViewController {
         view.addSubview(settingsPicker)
         
         title = "Settings"
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .never
+        //navigationController?.navigationBar.prefersLargeTitles = false
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didTapSave))
         

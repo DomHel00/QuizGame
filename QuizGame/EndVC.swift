@@ -88,7 +88,7 @@ final class EndVC: UIViewController {
         view.backgroundColor = .systemBackground
         
         title = "Your results"
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back to menu", style: .plain, target: self, action: #selector(back))
     }
     
@@ -121,7 +121,7 @@ final class EndVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     @objc func back() {
