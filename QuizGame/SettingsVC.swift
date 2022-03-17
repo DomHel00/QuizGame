@@ -42,6 +42,7 @@ final class SettingsVC: UIViewController {
     //  MARK: - Life cycle functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AppUtility.lockOrientation(.portrait)
         navigationItem.largeTitleDisplayMode = .never
     }
     
@@ -59,7 +60,12 @@ final class SettingsVC: UIViewController {
             settingsPicker.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
         ])
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -107,6 +113,4 @@ extension SettingsVC: UIPickerViewDelegate, UIPickerViewDataSource {
             return ""
         }
     }
-    
-    
 }
