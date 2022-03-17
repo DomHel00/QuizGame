@@ -45,6 +45,7 @@ final class MenuVC: UIViewController {
     //  MARK: - Life cycle functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AppUtility.lockOrientation(.portrait)
         navigationItem.largeTitleDisplayMode = .always
         view.alpha = 1
         listOfCategories.allowsSelection = true
@@ -52,6 +53,7 @@ final class MenuVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
         view.alpha = 0
     }
     
