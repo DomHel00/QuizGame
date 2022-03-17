@@ -72,7 +72,7 @@ final class GameVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.questions = questions
         poradi = 0
-        setUpStackView()
+        //setUpStackView()
         updateUI()
     }
     
@@ -92,25 +92,28 @@ final class GameVC: UIViewController {
             subview.removeFromSuperview()
         }
         
-        let m2 = UIStackView(arrangedSubviews: [answerButtons[0], answerButtons[1]])
-        m2.axis = .horizontal
-        m2.spacing = 10
-        m2.distribution = .fillEqually
-        let m3 = UIStackView(arrangedSubviews: [answerButtons[2], answerButtons[3]])
-        m3.axis = .horizontal
-        m3.spacing = 10
-        m3.distribution = .fillEqually
-        //  TODO: - Nahradit m3 m2
+        let horizontalStackView = UIStackView(arrangedSubviews: [answerButtons[0], answerButtons[1]])
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.spacing = 10
+        horizontalStackView.distribution = .fillEqually
+
+        let secondHorizontalStackView = UIStackView(arrangedSubviews: [answerButtons[2], answerButtons[3]])
+        secondHorizontalStackView.axis = .horizontal
+        secondHorizontalStackView.spacing = 10
+        secondHorizontalStackView.distribution = .fillEqually
         
-        myStackView.addArrangedSubview(m2)
-        myStackView.addArrangedSubview(m3)
+        myStackView.addArrangedSubview(horizontalStackView)
+        myStackView.addArrangedSubview(secondHorizontalStackView)
     }
     
     private func updateStackViewToRegularMode() {
         for subview in myStackView.subviews {
             subview.removeFromSuperview()
         }
-        setUpStackView()
+        //setUpStackView()
+        for button in answerButtons {
+            myStackView.addArrangedSubview(button)
+        }
     }
     
     //  MARK: - Buttons functions
@@ -260,4 +263,24 @@ final class GameVC: UIViewController {
             updateStackViewToRegularMode()
         }
     }
+}
+
+struct AppUtility {
+
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+    
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = orientation
+        }
+    }
+
+    /// OPTIONAL Added method to adjust lock and rotate to the desired orientation
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+   
+        self.lockOrientation(orientation)
+    
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        UINavigationController.attemptRotationToDeviceOrientation()
+    }
+
 }
