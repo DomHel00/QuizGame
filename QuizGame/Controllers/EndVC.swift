@@ -81,8 +81,8 @@ final class EndVC: UIViewController {
     //  MARK: - Functions
     @objc private func didTapBack() {
         guard let controllers = navigationController?.viewControllers else {return}
-        DispatchQueue.main.async {
-            self.navigationController?.popToViewController(controllers.first!, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popToViewController(controllers.first!, animated: true)
         }
     }
     

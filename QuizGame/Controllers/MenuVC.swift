@@ -132,13 +132,13 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         } else {
-            DispatchQueue.main.async {
-                self.loadingView.removeFromSuperview()
-                self.listOfCategories.allowsSelection = true
+            DispatchQueue.main.async { [weak self] in
+                self?.loadingView.removeFromSuperview()
+                self?.listOfCategories.allowsSelection = true
                 let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "Try again", style: .cancel)
                 alert.addAction(alertAction)
-                self.present(alert, animated:  true, completion: nil)
+                self?.present(alert, animated:  true, completion: nil)
             }
         }
     }

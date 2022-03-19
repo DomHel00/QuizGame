@@ -75,14 +75,14 @@ final class LaunchVC: UIViewController {
                 }
             }
         } else {
-            DispatchQueue.main.async {
-                self.spinner.stopAnimating()
+            DispatchQueue.main.async { [weak self] in
+                self?.spinner.stopAnimating()
                 let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "Try again", style: .cancel) { _ in
-                    self.startFetching()
+                    self?.startFetching()
                 }
                 alert.addAction(alertAction)
-                self.present(alert, animated:  true, completion: nil)
+                self?.present(alert, animated:  true, completion: nil)
             }}
     }
     

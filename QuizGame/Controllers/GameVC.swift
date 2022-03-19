@@ -196,12 +196,12 @@ final class GameVC: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         switch (traitCollection.verticalSizeClass) {
         case .compact:
-            DispatchQueue.main.async {
-                self.updateStackViewToCompactMode()
+            DispatchQueue.main.async { [weak self] in
+                self?.updateStackViewToCompactMode()
             }
         case .regular:
-            DispatchQueue.main.async {
-                self.updateStackViewToRegularMode()
+            DispatchQueue.main.async { [weak self] in
+                self?.updateStackViewToRegularMode()
             }
         default:
             break
