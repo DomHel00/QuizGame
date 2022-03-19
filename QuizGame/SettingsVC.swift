@@ -11,16 +11,33 @@ final class SettingsVC: UIViewController {
     private let typesOfDifficulty = ["All", "Easy", "Medium", "Hard"]
 
     //  MARK: - UI components
-    private let settingsLabel: UILabel = {
-        let settingsLabel = UILabel()
-        settingsLabel.translatesAutoresizingMaskIntoConstraints = false
-        settingsLabel.text = "Select how many questions you want."
-        settingsLabel.textAlignment = .center
-        settingsLabel.textColor = .label
-        settingsLabel.font = .preferredFont(forTextStyle: .title3)
-        return settingsLabel
+    private let firstTitle: UILabel = {
+        let firstTitle: UILabel = UILabel()
+        firstTitle.text = "Number of questions"
+        firstTitle.textAlignment = .center
+        firstTitle.numberOfLines = 0
+        firstTitle.translatesAutoresizingMaskIntoConstraints = false
+        return firstTitle
     }()
-        
+    
+    private let secondTitle: UILabel = {
+        let secondTitle: UILabel = UILabel()
+        secondTitle.text = "Dificulty of questions"
+        secondTitle.textAlignment = .center
+        secondTitle.numberOfLines = 0
+        secondTitle.translatesAutoresizingMaskIntoConstraints = false
+        return secondTitle
+    }()
+    
+    private let myStackView: UIStackView = {
+        let myStackView = UIStackView()
+        myStackView.translatesAutoresizingMaskIntoConstraints = false
+        myStackView.axis = .horizontal
+        myStackView.spacing = 0
+        myStackView.distribution = .fillEqually
+        return myStackView
+    }()
+    
     private let settingsPicker: UIPickerView = {
         let settingsPicker = UIPickerView()
         settingsPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -49,12 +66,11 @@ final class SettingsVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
-            settingsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            settingsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            settingsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            settingsLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
-            
-            settingsPicker.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 5),
+            myStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            myStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            myStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            settingsPicker.topAnchor.constraint(equalTo:myStackView.bottomAnchor, constant: 0),
             settingsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             settingsPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             settingsPicker.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
@@ -70,7 +86,6 @@ final class SettingsVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
     
-        view.addSubview(settingsLabel)
         view.addSubview(settingsPicker)
         
         title = "Settings"
@@ -81,6 +96,10 @@ final class SettingsVC: UIViewController {
         
         settingsPicker.delegate = self
         settingsPicker.dataSource = self
+        
+        view.addSubview(myStackView)
+        myStackView.addArrangedSubview(firstTitle)
+        myStackView.addArrangedSubview(secondTitle)
         
         //  TODO: - Pokud jsou nastavené hodnoty, nastavit je jako výchozí do picker view komponenty
     }
