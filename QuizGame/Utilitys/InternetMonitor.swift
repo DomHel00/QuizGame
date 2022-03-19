@@ -1,7 +1,6 @@
 //  InternetMonitor.swift
 //  Created by Dominik Hel on 06.11.2021.
 
-
 //  MARK: - Imports
 import Foundation
 import Network

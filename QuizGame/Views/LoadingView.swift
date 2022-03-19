@@ -18,11 +18,11 @@ final class LoadingView: UIView {
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Downloading data..."
         titleLabel.font = .preferredFont(forTextStyle: .body)
-        titleLabel.numberOfLines = 0
+        titleLabel.text = "Downloading data..."
         titleLabel.textColor = .label
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
         return titleLabel
     }()
     

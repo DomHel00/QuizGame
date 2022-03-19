@@ -11,30 +11,32 @@ final class SettingsVC: UIViewController {
     private let typesOfDifficulty = ["All", "Easy", "Medium", "Hard"]
 
     //  MARK: - UI components
-    private let firstTitle: UILabel = {
-        let firstTitle: UILabel = UILabel()
-        firstTitle.text = "Number of questions"
-        firstTitle.textAlignment = .center
-        firstTitle.numberOfLines = 0
-        firstTitle.translatesAutoresizingMaskIntoConstraints = false
-        return firstTitle
+    private let firstTitleLabel: UILabel = {
+        let firstTitleLabel: UILabel = UILabel()
+        firstTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        firstTitleLabel.text = "Number of questions"
+        firstTitleLabel.textColor = .label
+        firstTitleLabel.textAlignment = .center
+        firstTitleLabel.numberOfLines = 0
+        return firstTitleLabel
     }()
     
-    private let secondTitle: UILabel = {
-        let secondTitle: UILabel = UILabel()
-        secondTitle.text = "Dificulty of questions"
-        secondTitle.textAlignment = .center
-        secondTitle.numberOfLines = 0
-        secondTitle.translatesAutoresizingMaskIntoConstraints = false
-        return secondTitle
+    private let secondTitleLabel: UILabel = {
+        let secondTitleLabel: UILabel = UILabel()
+        secondTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        secondTitleLabel.text = "Dificulty of questions"
+        secondTitleLabel.textColor = .label
+        secondTitleLabel.textAlignment = .center
+        secondTitleLabel.numberOfLines = 0
+        return secondTitleLabel
     }()
     
     private let myStackView: UIStackView = {
         let myStackView = UIStackView()
         myStackView.translatesAutoresizingMaskIntoConstraints = false
         myStackView.axis = .horizontal
-        myStackView.spacing = 0
         myStackView.distribution = .fillEqually
+        myStackView.spacing = 0
         return myStackView
     }()
     
@@ -63,6 +65,11 @@ final class SettingsVC: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
@@ -77,11 +84,6 @@ final class SettingsVC: UIViewController {
         ])
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        AppUtility.lockOrientation(.all)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -90,16 +92,14 @@ final class SettingsVC: UIViewController {
         
         title = "Settings"
         navigationItem.largeTitleDisplayMode = .never
-        //navigationController?.navigationBar.prefersLargeTitles = false
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didTapSave))
         
         settingsPicker.delegate = self
         settingsPicker.dataSource = self
         
         view.addSubview(myStackView)
-        myStackView.addArrangedSubview(firstTitle)
-        myStackView.addArrangedSubview(secondTitle)
+        myStackView.addArrangedSubview(firstTitleLabel)
+        myStackView.addArrangedSubview(secondTitleLabel)
         
         //  TODO: - Pokud jsou nastavené hodnoty, nastavit je jako výchozí do picker view komponenty
     }

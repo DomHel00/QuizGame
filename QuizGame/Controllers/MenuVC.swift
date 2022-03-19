@@ -42,6 +42,11 @@ final class MenuVC: UIViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
+    //  MARK: - Override variables
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     //  MARK: - Life cycle functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -125,10 +130,6 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
     }
 }
 

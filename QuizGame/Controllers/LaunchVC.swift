@@ -11,43 +11,30 @@ final class LaunchVC: UIViewController {
         let backgroundImage = UIImageView()
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.image = UIImage(named: "Logo")
-        backgroundImage.backgroundColor = .black
-        backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFit
+        backgroundImage.clipsToBounds = true
         return backgroundImage
     }()
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "QUIZ GAME"
-        titleLabel.numberOfLines = 0
-        //titleLabel.font = UIFont(name: "Bradley Hand", size: 60)
-        //titleLabel.adjustsFontSizeToFitWidth = true
-
         titleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 40)!)
-        titleLabel.adjustsFontForContentSizeCategory = true
-
+        titleLabel.text = "QUIZ GAME"
         titleLabel.textColor = .systemOrange
         titleLabel.textAlignment = .center
-        titleLabel.minimumScaleFactor = 1
-
-        
+        titleLabel.numberOfLines = 0
         return titleLabel
     }()
     
     private let subtitleLabel: UILabel = {
         let subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Downloading data"
-        //subtitleLabel.font = UIFont(name: "Bradley Hand", size: 40)
-        subtitleLabel.textAlignment = .center
-        subtitleLabel.textColor = .white
-        //subtitleLabel.adjustsFontSizeToFitWidth = true
-        //subtitleLabel.minimumScaleFactor = 1
         subtitleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 36)!)
-        subtitleLabel.adjustsFontForContentSizeCategory = true
-
+        subtitleLabel.text = "Downloading data"
+        subtitleLabel.textColor = .white
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.numberOfLines = 0
         return subtitleLabel
     }()
     
@@ -100,6 +87,16 @@ final class LaunchVC: UIViewController {
     }
     
     //  MARK: - Life cycle functions
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AppUtility.lockOrientation(.portrait)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
@@ -136,15 +133,5 @@ final class LaunchVC: UIViewController {
         
         spinner.startAnimating()
         startFetching()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        AppUtility.lockOrientation(.portrait)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        AppUtility.lockOrientation(.all)
     }
 }

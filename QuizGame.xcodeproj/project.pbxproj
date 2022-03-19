@@ -17,6 +17,7 @@
 		E9450BA3272D31800055D334 /* CategoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9450BA2272D31800055D334 /* CategoryProvider.swift */; };
 		E9450BA5272D346F0055D334 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9450BA4272D346F0055D334 /* MenuVC.swift */; };
 		E960537A279337FA005978D2 /* EndVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9605379279337FA005978D2 /* EndVC.swift */; };
+		E9675B4E27E648E9004FC767 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9675B4D27E648E9004FC767 /* AppUtility.swift */; };
 		E9698E2B278F20F0006AD2EB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9698E2A278F20F0006AD2EB /* SettingsVC.swift */; };
 		E9B054F22736856F00139A3B /* InternetMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B054F12736856F00139A3B /* InternetMonitor.swift */; };
 		E9CC54A82790287B00807E20 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CC54A72790287B00807E20 /* UserDefaultsStorage.swift */; };
@@ -38,6 +39,7 @@
 		E9450BA2272D31800055D334 /* CategoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProvider.swift; sourceTree = "<group>"; };
 		E9450BA4272D346F0055D334 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		E9605379279337FA005978D2 /* EndVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndVC.swift; sourceTree = "<group>"; };
+		E9675B4D27E648E9004FC767 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		E9698E2A278F20F0006AD2EB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		E9B054F12736856F00139A3B /* InternetMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetMonitor.swift; sourceTree = "<group>"; };
 		E9CC54A72790287B00807E20 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
@@ -70,6 +72,44 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
+		E9675B4F27E64E63004FC767 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E9450B9C272D2FF00055D334 /* LaunchVC.swift */,
+				E9450BA4272D346F0055D334 /* MenuVC.swift */,
+				E9698E2A278F20F0006AD2EB /* SettingsVC.swift */,
+				E925BF4C272D6BE50051882C /* GameVC.swift */,
+				E9605379279337FA005978D2 /* EndVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E9675B5027E64EA8004FC767 /* Utilitys */ = {
+			isa = PBXGroup;
+			children = (
+				E9675B4D27E648E9004FC767 /* AppUtility.swift */,
+				E9B054F12736856F00139A3B /* InternetMonitor.swift */,
+				E9CC54A72790287B00807E20 /* UserDefaultsStorage.swift */,
+			);
+			path = Utilitys;
+			sourceTree = "<group>";
+		};
+		E9675B5127E64F97004FC767 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E90C31C7272D9ACB00A979BE /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E9675B5227E64FA3004FC767 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E93EA5EB273668F300F8B9E0 /* CustomError.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		E9B795832793557700E894EC /* Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,13 +128,13 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		E9C37FB2272D548F004B1ABC /* Model */ = {
+		E9C37FB2272D548F004B1ABC /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				E9450B9E272D310E0055D334 /* Quiz.swift */,
 				E9450BA0272D31490055D334 /* Category.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E9FD414427267838008F07B1 = {
@@ -116,20 +156,15 @@
 		E9FD414F27267838008F07B1 /* QuizGame */ = {
 			isa = PBXGroup;
 			children = (
-				E9B054F12736856F00139A3B /* InternetMonitor.swift */,
-				E93EA5EB273668F300F8B9E0 /* CustomError.swift */,
-				E90C31C7272D9ACB00A979BE /* LoadingView.swift */,
-				E9450B9C272D2FF00055D334 /* LaunchVC.swift */,
-				E9450BA4272D346F0055D334 /* MenuVC.swift */,
-				E925BF4C272D6BE50051882C /* GameVC.swift */,
-				E9698E2A278F20F0006AD2EB /* SettingsVC.swift */,
-				E9CC54A72790287B00807E20 /* UserDefaultsStorage.swift */,
-				E9C37FB2272D548F004B1ABC /* Model */,
 				E9450B9B272D2FB80055D334 /* Delegates */,
-				E9605379279337FA005978D2 /* EndVC.swift */,
+				E9C37FB2272D548F004B1ABC /* Models */,
+				E9675B4F27E64E63004FC767 /* Controllers */,
 				E9B795832793557700E894EC /* Providers */,
-				E9FD41592726783A008F07B1 /* Assets.xcassets */,
+				E9675B5127E64F97004FC767 /* Views */,
+				E9675B5027E64EA8004FC767 /* Utilitys */,
+				E9675B5227E64FA3004FC767 /* Other */,
 				E9B795842793558800E894EC /* Storyboards */,
+				E9FD41592726783A008F07B1 /* Assets.xcassets */,
 				E9FD415E2726783A008F07B1 /* Info.plist */,
 			);
 			path = QuizGame;
@@ -206,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9675B4E27E648E9004FC767 /* AppUtility.swift in Sources */,
 				E9CC54A82790287B00807E20 /* UserDefaultsStorage.swift in Sources */,
 				E925BF4D272D6BE50051882C /* GameVC.swift in Sources */,
 				E93EA5EC273668F300F8B9E0 /* CustomError.swift in Sources */,

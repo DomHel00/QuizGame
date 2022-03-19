@@ -18,27 +18,21 @@ final class GameVC: UIViewController {
     //  MARK: - UI components
     private let myLabel: UILabel = {
         let myLabel = UILabel()
+        myLabel.translatesAutoresizingMaskIntoConstraints = false
+        myLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 36)!)
         myLabel.text = "1/\(UserDefaultsStorage.shared.loadNumberOfQuestions())"
         myLabel.textColor = .systemOrange
         myLabel.textAlignment = .center
-        //myLabel.font = .preferredFont(forTextStyle: .largeTitle)
-        //myLabel.adjustsFontForContentSizeCategory = true
-        myLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 36)!)
-        myLabel.adjustsFontForContentSizeCategory = true
-
-        //myLabel.font = UIFont(name: "Bradley Hand", size: 34)
-        //myLabel.adjustsFontSizeToFitWidth = true
-        myLabel.translatesAutoresizingMaskIntoConstraints = false
         return myLabel
     }()
     
     private let myTextView: UITextView = {
         let myTextView = UITextView()
-        myTextView.textColor = .label
-        myTextView.isEditable = false
-        myTextView.font = .systemFont(ofSize: 24)
         myTextView.translatesAutoresizingMaskIntoConstraints = false
+        myTextView.font = .systemFont(ofSize: 24)
+        myTextView.textColor = .label
         myTextView.textAlignment = .center
+        myTextView.isEditable = false
         return myTextView
     }()
     
@@ -62,8 +56,8 @@ final class GameVC: UIViewController {
         let myStackView = UIStackView()
         myStackView.translatesAutoresizingMaskIntoConstraints = false
         myStackView.axis = .vertical
-        myStackView.spacing = 10
         myStackView.distribution = .fillEqually
+        myStackView.spacing = 10
         return myStackView
     }()
     
@@ -72,7 +66,6 @@ final class GameVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.questions = questions
         poradi = 0
-        //setUpStackView()
         updateUI()
     }
     
@@ -110,7 +103,7 @@ final class GameVC: UIViewController {
         for subview in myStackView.subviews {
             subview.removeFromSuperview()
         }
-        //setUpStackView()
+
         for button in answerButtons {
             myStackView.addArrangedSubview(button)
         }
@@ -133,7 +126,7 @@ final class GameVC: UIViewController {
         var answers = answers
         for button in 0..<answers.count {
             let randomAnswer = answers.randomElement()
-            answerButtons[button].setTitle(randomAnswer, for: .normal)
+            answerButtons[button].setTitle(randomAnswer?.htmlAttributedString?.string, for: .normal)
             for (index, answer) in answers.enumerated() {
                 if answer == randomAnswer {
                     answers.remove(at: index)
@@ -263,24 +256,4 @@ final class GameVC: UIViewController {
             updateStackViewToRegularMode()
         }
     }
-}
-
-struct AppUtility {
-
-    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
-    
-        if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.orientationLock = orientation
-        }
-    }
-
-    /// OPTIONAL Added method to adjust lock and rotate to the desired orientation
-    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
-   
-        self.lockOrientation(orientation)
-    
-        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
-        UINavigationController.attemptRotationToDeviceOrientation()
-    }
-
 }

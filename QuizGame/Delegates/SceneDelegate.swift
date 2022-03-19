@@ -1,9 +1,5 @@
-//
 //  SceneDelegate.swift
-//  QuizGame
-//
 //  Created by Dominik Hel on 25.10.2021.
-//
 
 import UIKit
 
