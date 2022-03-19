@@ -19,7 +19,7 @@ final class LoadingView: UIView {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Downloading data..."
-        titleLabel.font = .systemFont(ofSize: 16)
+        titleLabel.font = .preferredFont(forTextStyle: .body)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .label
         titleLabel.textAlignment = .center
@@ -51,7 +51,7 @@ final class LoadingView: UIView {
             spinner.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             spinner.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             spinner.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            spinner.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
+            spinner.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6),
             
             titleLabel.topAnchor.constraint(equalTo: spinner.bottomAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
