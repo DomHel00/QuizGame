@@ -126,6 +126,10 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 }
 
 //  MARK: - String extension
