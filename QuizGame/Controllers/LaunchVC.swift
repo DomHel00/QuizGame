@@ -57,7 +57,7 @@ final class LaunchVC: UIViewController {
                 case .failure(let error):
                     DispatchQueue.main.async {
                         print(error)
-                        let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Fatal Error", message: "\(error)", preferredStyle: .alert)
                         let alertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
                         alert.addAction(alertAction)
                         self?.spinner.stopAnimating()
@@ -77,8 +77,8 @@ final class LaunchVC: UIViewController {
         } else {
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
-                let alert = UIAlertController(title: "No Internet Connection", message: "Bad connection", preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "Cancle", style: .cancel) { _ in
+                let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "Try again", style: .cancel) { _ in
                     self.startFetching()
                 }
                 alert.addAction(alertAction)

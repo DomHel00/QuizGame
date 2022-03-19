@@ -108,26 +108,35 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
         let typesOfDifficulty = UserDefaultsStorage.shared.loadTypesOfDifficulty()
         listOfCategories.allowsSelection = false
         
-        QuizProvider.shared.fetchQuiz(urlID: id, numberOfQuestions: numberOfQuestions, typesOfDifficulty: typesOfDifficulty) { [weak self] results in
-            DispatchQueue.main.async {
-                self?.loadingView.removeFromSuperview()
+        if (InternetMonitor.shared.isConnected) {
+            QuizProvider.shared.fetchQuiz(urlID: id, numberOfQuestions: numberOfQuestions, typesOfDifficulty: typesOfDifficulty) { [weak self] results in
+                DispatchQueue.main.async {
+                    self?.loadingView.removeFromSuperview()
+                }
+                switch (results) {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        print(error)
+                        let alert = UIAlertController(title: "Fatal Error", message: "\(error)", preferredStyle: .alert)
+                        let alertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+                        alert.addAction(alertAction)
+                        self?.present(alert, animated:  true, completion: nil)
+                        self?.listOfCategories.allowsSelection = true
+                    }
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        let gameVC = GameVC(questions: data)
+                        gameVC.modalPresentationStyle = .fullScreen
+                        self?.navigationController?.pushViewController(gameVC, animated: true)
+                    }
+                }
             }
-            switch (results) {
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error)
-                    let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
-                    let alertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
-                    alert.addAction(alertAction)
-                    self?.present(alert, animated:  true, completion: nil)
-                    self?.listOfCategories.allowsSelection = true
-                }
-            case .success(let data):
-                DispatchQueue.main.async {
-                    let gameVC = GameVC(questions: data)
-                    gameVC.modalPresentationStyle = .fullScreen
-                    self?.navigationController?.pushViewController(gameVC, animated: true)
-                }
+        } else {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "Try again", style: .cancel)
+                alert.addAction(alertAction)
+                self.present(alert, animated:  true, completion: nil)
             }
         }
     }
