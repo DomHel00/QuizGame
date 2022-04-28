@@ -42,6 +42,16 @@ final class MenuVC: UIViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
+    private func lockUI() {
+        listOfCategories.allowsSelection = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    private func unlockUI() {
+        listOfCategories.allowsSelection = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
     //  MARK: - Override variables
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -53,7 +63,7 @@ final class MenuVC: UIViewController {
         AppUtility.lockOrientation(.portrait)
         navigationItem.largeTitleDisplayMode = .always
         view.alpha = 1
-        listOfCategories.allowsSelection = true
+        unlockUI()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,8 +116,7 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
         let id = categories[indexPath.row].id
         let numberOfQuestions = UserDefaultsStorage.shared.loadNumberOfQuestions()
         let typesOfDifficulty = UserDefaultsStorage.shared.loadTypesOfDifficulty()
-        listOfCategories.allowsSelection = false
-        
+        lockUI()
         if (InternetMonitor.shared.isConnected) {
             QuizProvider.shared.fetchQuiz(urlID: id, numberOfQuestions: numberOfQuestions, typesOfDifficulty: typesOfDifficulty) { [weak self] results in
                 DispatchQueue.main.async {
@@ -121,7 +130,7 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
                         let alertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
                         alert.addAction(alertAction)
                         self?.present(alert, animated:  true, completion: nil)
-                        self?.listOfCategories.allowsSelection = true
+                        self?.unlockUI()
                     }
                 case .success(let data):
                     DispatchQueue.main.async {
@@ -134,7 +143,7 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             DispatchQueue.main.async { [weak self] in
                 self?.loadingView.removeFromSuperview()
-                self?.listOfCategories.allowsSelection = true
+                self?.unlockUI()
                 let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "Try again", style: .cancel)
                 alert.addAction(alertAction)
