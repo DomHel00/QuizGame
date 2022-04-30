@@ -7,33 +7,36 @@ import UIKit
 //  MARK: - Class GameVC
 final class GameVC: UIViewController {
     //  MARK: - Constants and variables
-    private var questions = [Questions]()
+    /// An array of Question struct instance.
+    private var questions = [Question]()
+    /// Number of correct answers.
     private var numberOfCorrectAnswers = 0
-    private var poradi: Int = 0 {
+    /// The current index of the questions array.
+    private var currentQuestionIndex: Int = 0 {
         didSet {
-            myLabel.text = "\(poradi+1)/\(UserDefaultsStorage.shared.loadNumberOfQuestions())"
+            questionIndexLabel.text = "\(currentQuestionIndex+1)/\(UserDefaultsStorage.shared.loadNumberOfQuestions())"
         }
     }
     
     //  MARK: - UI components
-    private let myLabel: UILabel = {
-        let myLabel = UILabel()
-        myLabel.translatesAutoresizingMaskIntoConstraints = false
-        myLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 36)!)
-        myLabel.text = "1/\(UserDefaultsStorage.shared.loadNumberOfQuestions())"
-        myLabel.textColor = .systemOrange
-        myLabel.textAlignment = .center
-        return myLabel
+    private let questionIndexLabel: UILabel = {
+        let questionIndexLabel = UILabel()
+        questionIndexLabel.translatesAutoresizingMaskIntoConstraints = false
+        questionIndexLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont(name: "Bradley Hand", size: 36)!)
+        questionIndexLabel.text = "1/\(UserDefaultsStorage.shared.loadNumberOfQuestions())"
+        questionIndexLabel.textColor = .systemOrange
+        questionIndexLabel.textAlignment = .center
+        return questionIndexLabel
     }()
     
-    private let myTextView: UITextView = {
-        let myTextView = UITextView()
-        myTextView.translatesAutoresizingMaskIntoConstraints = false
-        myTextView.font = .systemFont(ofSize: 24)
-        myTextView.textColor = .label
-        myTextView.textAlignment = .center
-        myTextView.isEditable = false
-        return myTextView
+    private let questionTextView: UITextView = {
+        let questionTextView = UITextView()
+        questionTextView.translatesAutoresizingMaskIntoConstraints = false
+        questionTextView.font = .systemFont(ofSize: 24)
+        questionTextView.textColor = .label
+        questionTextView.textAlignment = .center
+        questionTextView.isEditable = false
+        return questionTextView
     }()
     
     private let answerButtons: [UIButton] = {
@@ -52,36 +55,43 @@ final class GameVC: UIViewController {
         return answerButtons
     }()
     
-    private let myStackView: UIStackView = {
-        let myStackView = UIStackView()
-        myStackView.translatesAutoresizingMaskIntoConstraints = false
-        myStackView.axis = .vertical
-        myStackView.distribution = .fillEqually
-        myStackView.spacing = 10
-        return myStackView
+    private let buttonStackView: UIStackView = {
+        let buttonStackView = UIStackView()
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.axis = .vertical
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 10
+        return buttonStackView
     }()
     
     //  MARK: - Inits
-    init(questions: [Questions]) {
+    /// Initializer for creating a new GameVC instance.
+    ///
+    /// - Parameters:
+    ///     - Questions: An array of Question struct instance.
+    init(questions: [Question]) {
         super.init(nibName: nil, bundle: nil)
         self.questions = questions
-        poradi = 0
+        //currentQuestionIndex = 0
         updateUI()
     }
     
+    /// Required initializer.
     required init?(coder: NSCoder) {
         fatalError("Init error!")
     }
     
     //  MARK: - StackView functions
+    /// Sets  up the stack view.
     private func setUpStackView() {
         for button in answerButtons {
-            myStackView.addArrangedSubview(button)
+            buttonStackView.addArrangedSubview(button)
         }
     }
     
+    /// Updates the stack view UI for compact mode.
     private func updateStackViewToCompactMode() {
-        for subview in myStackView.subviews {
+        for subview in buttonStackView.subviews {
             subview.removeFromSuperview()
         }
         
@@ -95,33 +105,37 @@ final class GameVC: UIViewController {
         secondHorizontalStackView.spacing = 10
         secondHorizontalStackView.distribution = .fillEqually
         
-        myStackView.addArrangedSubview(horizontalStackView)
-        myStackView.addArrangedSubview(secondHorizontalStackView)
+        buttonStackView.addArrangedSubview(horizontalStackView)
+        buttonStackView.addArrangedSubview(secondHorizontalStackView)
     }
     
+    /// Updates the stack view UI for regular mode.
     private func updateStackViewToRegularMode() {
-        for subview in myStackView.subviews {
+        for subview in buttonStackView.subviews {
             subview.removeFromSuperview()
         }
 
         for button in answerButtons {
-            myStackView.addArrangedSubview(button)
+            buttonStackView.addArrangedSubview(button)
         }
     }
     
     //  MARK: - Buttons functions
+    /// Locks taping on all buttons.
     private func lockTapOnButton() {
         for button in answerButtons {
             button.isEnabled = false
         }
     }
     
+    /// Unlocks taping on all buttons.
     private func unlockTapOnButton() {
         for button in answerButtons {
             button.isEnabled = true
         }
     }
     
+    /// It randomly divides the answers to a question into titles on the buttons.
     private func setUpButtonAnswersTitles(answers: [String]) {
         var answers = answers
         for button in 0..<answers.count {
@@ -135,16 +149,18 @@ final class GameVC: UIViewController {
         }
     }
     
+    /// Captures button press.
     @objc private func didTapButton(sender: UIButton) {
         lockTapOnButton()
-        let answer = sender.titleLabel?.text
-        let tag = sender.tag
-        checkAnswer(poradi: poradi, answer: answer!, tag: tag)
+        let selectedAnswer = sender.titleLabel?.text
+        let buttonTag = sender.tag
+        checkAnswer(currentQuestionIndex: currentQuestionIndex, answer: selectedAnswer!, tag: buttonTag)
     }
     
     //  MARK: - Game logic functions
-    private func checkAnswer(poradi: Int, answer: String, tag: Int) {
-        let answerBool = answer == questions[poradi].correct_answer.htmlAttributedString!.string
+    /// Checks the selected answer.
+    private func checkAnswer(currentQuestionIndex: Int, answer: String, tag: Int) {
+        let answerBool = answer == questions[currentQuestionIndex].correct_answer.htmlAttributedString!.string
         if answerBool {
             numberOfCorrectAnswers += 1
         }
@@ -156,7 +172,7 @@ final class GameVC: UIViewController {
                         self.answerButtons[tag].backgroundColor = .systemBackground
                     } completion: { done in
                         if done {
-                            self.poradi += 1
+                            self.currentQuestionIndex += 1
                             self.unlockTapOnButton()
                             self.updateUI()
                         }
@@ -165,23 +181,24 @@ final class GameVC: UIViewController {
             }
     }
     
+    /// Updates UI.
     private func updateUI() {
         let max = UserDefaultsStorage.shared.loadNumberOfQuestions()
-        if poradi < max {
-            //print("\(questions[poradi].question.htmlAttributedString!.string)")
-            print("\(questions[poradi].getAllAnswers())")
-            print("\(questions[poradi].correct_answer.htmlAttributedString!.string)")
+        if currentQuestionIndex < max {
+            //print("\(questions[currentQuestionIndex].question.htmlAttributedString!.string)")
+            //print("\(questions[currentQuestionIndex].getAllAnswers())")
+            //print("\(questions[currentQuestionIndex].correct_answer.htmlAttributedString!.string)")
             
-            myTextView.text = questions[poradi].question.htmlAttributedString!.string
+            questionTextView.text = questions[currentQuestionIndex].question.htmlAttributedString!.string
             
-            if (questions[poradi].getAllAnswers().count > 2) {
+            if (questions[currentQuestionIndex].getAllAnswers().count > 2) {
                 answerButtons[2].isHidden = false
                 answerButtons[3].isHidden = false
-                setUpButtonAnswersTitles(answers: questions[poradi].getAllAnswers())
+                setUpButtonAnswersTitles(answers: questions[currentQuestionIndex].getAllAnswers())
             } else {
                 answerButtons[2].isHidden = true
                 answerButtons[3].isHidden = true
-                setUpButtonAnswersTitles(answers: questions[poradi].getAllAnswers())
+                setUpButtonAnswersTitles(answers: questions[currentQuestionIndex].getAllAnswers())
             }
             
         } else {
@@ -222,20 +239,20 @@ final class GameVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         NSLayoutConstraint.activate([
-            myLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            myLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            myLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            myLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
+            questionIndexLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            questionIndexLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            questionIndexLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            questionIndexLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
             
-            myTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            myTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            myTextView.topAnchor.constraint(equalTo: myLabel.bottomAnchor, constant: 20),
-            myTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
+            questionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            questionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            questionTextView.topAnchor.constraint(equalTo: questionIndexLabel.bottomAnchor, constant: 20),
+            questionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
             
-            myStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            myStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            myStackView.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 20),
-            myStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            buttonStackView.topAnchor.constraint(equalTo: questionTextView.bottomAnchor, constant: 20),
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     
@@ -243,9 +260,9 @@ final class GameVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        view.addSubview(myLabel)
-        view.addSubview(myTextView)
-        view.addSubview(myStackView)
+        view.addSubview(questionIndexLabel)
+        view.addSubview(questionTextView)
+        view.addSubview(buttonStackView)
                 
         title = "Quiz"
         navigationItem.largeTitleDisplayMode = .never

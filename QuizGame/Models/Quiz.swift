@@ -4,8 +4,8 @@
 //  MARK: - Imports
 import Foundation
 
-//  MARK: - Struct Questions
-struct Questions: Codable {
+//  MARK: - Struct Question
+struct Question: Codable {
     let category: String
     let type: String
     let difficulty: String
@@ -14,6 +14,7 @@ struct Questions: Codable {
     let incorrect_answers: [String]
     
     //  MARK: - Functions
+    /// Returns all answers in one array.
     func getAllAnswers() -> [String]{
         var answers = [String]()
         answers.append(correct_answer)
@@ -25,5 +26,5 @@ struct Questions: Codable {
 //  MARK: - Struct Quiz
 struct Quiz: Codable {
     let response_code: Int
-    let results: [Questions]
+    let results: [Question]
 }

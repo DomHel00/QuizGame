@@ -27,20 +27,30 @@ final class LoadingView: UIView {
     }()
     
     //  MARK: - Inits
+    /// Initializer for creating a new LoadingView instance.
+    ///
+    /// - Parameters:
+    ///     - frame: A view's location and size .
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemGray3
         self.addSubview(spinner)
         self.addSubview(titleLabel)
-        spinner.startAnimating()
     }
     
+    /// Required initializer.
     required init?(coder: NSCoder) {
         fatalError("Init error!")
     }
     
     //  MARK: - Functions
-    public func stop() {
+    /// Starts the spinner animation.
+    public func startSpinnerAnimation() {
+        spinner.startAnimating()
+    }
+    
+    /// Stops the spinner animation.
+    public func stopSpinnerAnimation() {
         spinner.stopAnimating()
     }
     

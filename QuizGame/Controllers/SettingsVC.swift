@@ -7,8 +7,10 @@ import UIKit
 //  MARK: - Class SettingsVC
 final class SettingsVC: UIViewController {
     //  MARK: - Constants and variables
+    /// An array of possibilities of number of questions.
     private let numberOfQuestions = [10, 15, 20, 25, 30, 35, 40, 45, 50]
-    private let typesOfDifficulty = ["All", "Easy", "Medium", "Hard"]
+    /// An array of possibilities of type of difficulty.
+    private let difficultyType = ["All", "Easy", "Medium", "Hard"]
 
     //  MARK: - UI components
     private let firstTitleLabel: UILabel = {
@@ -47,14 +49,23 @@ final class SettingsVC: UIViewController {
     }()
     
     //  MARK: - Functions
+    /// Saves a selected settings.
     @objc private func didTapSave() {
-        /*
+        /*Pozor!
+        Využívané API není dokonalé.
+        Původně si zde hráč mohl nastavit množství otázek a úroven obtížnosti.
+        Vyskytl se zde problém, že API nemá v některých kategoriích dostatek otázek s vybranou obtížností.
+        Kód níže zobrazuje jak by vše mělo fungovat nebýt této chyby.
+        Avšak abych předešel těmto problémům i když uživatel změní své nastavení, tak hodnoty zůstanou vždy nastaveny na výchozí stav.
+        
+        Ideálně by vše fungovalo takto:
         let selectedNumber = numberOfQuestions[settingsPicker.selectedRow(inComponent: 0)]
-        let selectedType = typesOfDifficulty[settingsPicker.selectedRow(inComponent: 1)]
-        UserDefaultsStorage.shared.save(numberOfQuestions: selectedNumber, typesOfDifficulty: selectedType)
+        let selectedType = difficultyType[settingsPicker.selectedRow(inComponent: 1)]
+        UserDefaultsStorage.shared.save(numberOfQuestions: selectedNumber, difficultyType: selectedType)
+        navigationController?.popToRootViewController(animated: true)
         */
         
-        UserDefaultsStorage.shared.save(numberOfQuestions: 10, typesOfDifficulty: "All")
+        UserDefaultsStorage.shared.save(numberOfQuestions: 10, difficultyType: "All")
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -107,6 +118,7 @@ final class SettingsVC: UIViewController {
     
 //  MARK: - SettingsVC extension
 extension SettingsVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    //  MARK: - PickerView functions
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -116,7 +128,7 @@ extension SettingsVC: UIPickerViewDelegate, UIPickerViewDataSource {
         case 0:
             return numberOfQuestions.count
         case 1:
-            return typesOfDifficulty.count
+            return difficultyType.count
         default:
             return 0
         }
@@ -127,7 +139,7 @@ extension SettingsVC: UIPickerViewDelegate, UIPickerViewDataSource {
         case 0:
             return String(numberOfQuestions[row])
         case 1:
-            return typesOfDifficulty[row]
+            return difficultyType[row]
         default:
             return ""
         }

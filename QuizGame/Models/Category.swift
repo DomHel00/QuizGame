@@ -10,6 +10,7 @@ struct Category: Codable {
     var name: String
     
     //  MARK: - Functions
+    /// Edits the name  of a category.
     mutating func editName() {
         name = name.replacingOccurrences(of: "Entertainment: ", with: "")
         name = name.replacingOccurrences(of: "Science: ", with: "")

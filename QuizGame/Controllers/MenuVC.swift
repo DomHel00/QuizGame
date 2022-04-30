@@ -7,6 +7,7 @@ import UIKit
 //  MARK: - Class MenuVC
 final class MenuVC: UIViewController {
     //  MARK: - Constants and variables
+    /// An array of category struct instances.
     private var categories = [Category]()
     
     //  MARK: - UI components
@@ -25,28 +26,36 @@ final class MenuVC: UIViewController {
     }()
     
     //  MARK: - Inits
+    /// Initializer for creating a new MenuVC instance.
+    ///
+    /// - Parameters:
+    ///     - categories: An array of category struct instances.
     init(categories: [Category]) {
         super.init(nibName: nil, bundle: nil)
         self.categories = categories
         listOfCategories.reloadData()
     }
     
+    /// Required initializer.
     required init?(coder: NSCoder) {
         fatalError("Init error!")
     }
     
     //  MARK: - Functions
+    /// Shows settingsVC.
     @objc private func didTapGear() {
         let settingsVC = SettingsVC()
         settingsVC.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
+    /// Locks the touch on UI elements.
     private func lockUI() {
         listOfCategories.allowsSelection = false
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
+    /// Unlocks the touch on UI elements.
     private func unlockUI() {
         listOfCategories.allowsSelection = true
         navigationItem.rightBarButtonItem?.isEnabled = true
@@ -113,13 +122,15 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         view.addSubview(loadingView)
+        loadingView.startSpinnerAnimation()
         let id = categories[indexPath.row].id
         let numberOfQuestions = UserDefaultsStorage.shared.loadNumberOfQuestions()
-        let typesOfDifficulty = UserDefaultsStorage.shared.loadTypesOfDifficulty()
+        let difficultyType = UserDefaultsStorage.shared.loadDifficultyType()
         lockUI()
         if (InternetMonitor.shared.isConnected) {
-            QuizProvider.shared.fetchQuiz(urlID: id, numberOfQuestions: numberOfQuestions, typesOfDifficulty: typesOfDifficulty) { [weak self] results in
+            QuizProvider.shared.fetchQuiz(categoryID: id, numberOfQuestions: numberOfQuestions, difficultyType: difficultyType) { [weak self] results in
                 DispatchQueue.main.async {
+                    self?.loadingView.stopSpinnerAnimation()
                     self?.loadingView.removeFromSuperview()
                 }
                 switch (results) {
@@ -145,7 +156,7 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
                 self?.loadingView.removeFromSuperview()
                 self?.unlockUI()
                 let alert = UIAlertController(title: "Internet Connection Error", message: "You are not connected to the internet.", preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "Try again", style: .cancel)
+                let alertAction = UIAlertAction(title: "Try again!", style: .cancel)
                 alert.addAction(alertAction)
                 self?.present(alert, animated:  true, completion: nil)
             }

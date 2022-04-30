@@ -47,6 +47,7 @@ final class LaunchVC: UIViewController {
     }()
     
     //  MARK: - Functions
+    /// Checks internet connection and starts fetching quiz data.
     private func startFetching() {
         if spinner.isAnimating == false {
             spinner.startAnimating()

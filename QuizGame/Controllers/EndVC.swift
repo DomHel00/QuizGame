@@ -7,6 +7,7 @@ import UIKit
 //  MARK: - Class EndVC
 final class EndVC: UIViewController {
     //  MARK: - Constants and variables
+    /// Number of correct answers.
     private let numberOfCorrectAnswers: Int
     
     //  MARK: - UI components
@@ -68,17 +69,24 @@ final class EndVC: UIViewController {
     }()
     
     //  MARK: - Inits
+    //  MARK: - Inits
+    /// Initializer for creating a new EndVC instance.
+    ///
+    /// - Parameters:
+    ///     - numberOfCorrectAnswers: Number of correct answers.
     init(numberOfCorrectAnswers: Int) {
         self.numberOfCorrectAnswers = numberOfCorrectAnswers
         super.init(nibName: nil, bundle: nil)
         updateUI()
     }
     
+    /// Required initializer.
     required init?(coder: NSCoder) {
         fatalError("Init error!")
     }
     
     //  MARK: - Functions
+    /// Return back to the MenuVC.
     @objc private func didTapBack() {
         guard let controllers = navigationController?.viewControllers else {return}
         DispatchQueue.main.async { [weak self] in
@@ -86,6 +94,7 @@ final class EndVC: UIViewController {
         }
     }
     
+    /// Updates UI.
     private func updateUI() {
         myStackView.addArrangedSubview(scoreLabel)
         myStackView.addArrangedSubview(successLabel)
@@ -100,19 +109,19 @@ final class EndVC: UIViewController {
         successLabel.text = "Percentage success: \n\(formatter.string(from: NSNumber(value: percentValue)) ?? "-")"
         
         if percentValue >= 0.85 {
-            markLabel.text = "Your mark:\nA - Great result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nA - Great result! Try another quiz!"
         }
         else if percentValue < 0.85 && percentValue >= 0.70  {
-            markLabel.text = "Your mark:\nB - Good result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nB - Good result! Try another quiz!"
         }
         else if percentValue < 0.70 && percentValue >= 0.50  {
-            markLabel.text = "Your mark:\nC - Avarage result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nC - Avarage result! Try another quiz!"
         }
         else if percentValue < 0.50 && percentValue >= 0.28  {
-            markLabel.text = "Your mark:\nD - Not much result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nD - Not much result! Try another quiz!"
         }
         else if percentValue < 0.28 {
-            markLabel.text = "Your mark:\nF - Bad result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nF - Bad result! Try another quiz!"
         }
     }
     

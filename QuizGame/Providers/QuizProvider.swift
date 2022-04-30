@@ -7,18 +7,27 @@ import Foundation
 //  MARK: - Class QuizProvider
 final class QuizProvider {
     //  MARK: - Constants and variables
+    /// Shared property of the QuizProvider class (singleton).
     static let shared = QuizProvider()
     
     //  MARK: - Inits
+    /// Private initializer.
     private init() {}
     
     //  MARK: - Functions
-    func fetchQuiz(urlID: Int, numberOfQuestions: Int, typesOfDifficulty: String, completion: @escaping (Result<[Questions], Error>) -> (Void)) {
+    /// Retrieves quiz data from the URL and creates an array instance of the Question struct from it.
+    ///
+    /// - Parameters:
+    ///     - categoryID: The category ID.
+    ///     - numberOfQuestions: The number of questions.
+    ///     - difficultyType: The type of the difficulty.
+    ///     - completion: Escaping closure.
+    func fetchQuiz(categoryID: Int, numberOfQuestions: Int, difficultyType: String, completion: @escaping (Result<[Question], Error>) -> (Void)) {
         let urlString: String
-        if typesOfDifficulty.lowercased() == "all" {
-            urlString = "https://opentdb.com/api.php?amount=\(numberOfQuestions)&category=\(urlID)"
+        if difficultyType.lowercased() == "all" {
+            urlString = "https://opentdb.com/api.php?amount=\(numberOfQuestions)&category=\(categoryID)"
         } else {
-            urlString = "https://opentdb.com/api.php?amount=\(numberOfQuestions)&category=\(urlID)&difficulty=\(typesOfDifficulty.lowercased())"
+            urlString = "https://opentdb.com/api.php?amount=\(numberOfQuestions)&category=\(categoryID)&difficulty=\(difficultyType.lowercased())"
         }
         
         guard let finalURL = URL(string: urlString) else {
