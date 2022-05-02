@@ -54,7 +54,7 @@ final class EndVC: UIViewController {
         let myStackView = UIStackView()
         myStackView.translatesAutoresizingMaskIntoConstraints = false
         myStackView.axis = .vertical
-        myStackView.distribution = .fillEqually
+        myStackView.distribution = .equalSpacing
         myStackView.spacing = 10
         return myStackView
     }()
@@ -109,19 +109,19 @@ final class EndVC: UIViewController {
         successLabel.text = "Percentage success: \n\(formatter.string(from: NSNumber(value: percentValue)) ?? "-")"
         
         if percentValue >= 0.85 {
-            markLabel.text = "Your quiz mark:\nA - Great result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nA - Great result!\n\nTry another quiz!"
         }
         else if percentValue < 0.85 && percentValue >= 0.70  {
-            markLabel.text = "Your quiz mark:\nB - Good result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nB - Good result!\n\nTry another quiz!"
         }
         else if percentValue < 0.70 && percentValue >= 0.50  {
-            markLabel.text = "Your quiz mark:\nC - Avarage result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nC - Avarage result!\n\nTry another quiz!"
         }
         else if percentValue < 0.50 && percentValue >= 0.28  {
-            markLabel.text = "Your quiz mark:\nD - Not much result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nD - Not much result!\n\nTry another quiz!"
         }
         else if percentValue < 0.28 {
-            markLabel.text = "Your quiz mark:\nF - Bad result! Try another quiz!"
+            markLabel.text = "Your quiz mark:\nF - Bad result!\n\nTry another quiz!"
         }
     }
     
@@ -165,6 +165,13 @@ final class EndVC: UIViewController {
 
         title = "Your results"
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back to menu", style: .plain, target: self, action: #selector(didTapBack))
+        
+        /// Custom back bar button item.
+        let customBackButton = UIButton(type: .system)
+        customBackButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        customBackButton.setTitle("Categories", for: .normal)
+        customBackButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+        customBackButton.sizeToFit()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customBackButton)
     }
 }
