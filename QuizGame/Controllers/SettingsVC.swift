@@ -112,7 +112,25 @@ final class SettingsVC: UIViewController {
         myStackView.addArrangedSubview(firstTitleLabel)
         myStackView.addArrangedSubview(secondTitleLabel)
         
-        //  TODO: - Pokud jsou nastavené hodnoty, nastavit je jako výchozí do picker view komponenty
+        /*
+        Zobrazení uložených hodnot v objektu settingsPicker.
+        
+        Získáme hodnoty proměnných ze třídy UserDefaultsStorage.
+        let currentValueOfNumberOfQuestion = UserDefaultsStorage.shared.loadNumberOfQuestions()
+        let currentValueOfDifficultyType = UserDefaultsStorage.shared.loadDifficultyType()
+        
+        Najdeme indexy těchto proměnných v polích.
+        if let currentIndexOfNumberOfQuestion = numberOfQuestions.firstIndex(of: currentValueOfNumberOfQuestion) {
+            settingsPicker.selectRow(currentIndexOfNumberOfQuestion, inComponent: 0, animated: true)
+        }
+        if let currentIndexOfDifficultyType = difficultyType.firstIndex(of: currentValueOfDifficultyType) {
+            settingsPicker.selectRow(currentIndexOfDifficultyType, inComponent: 1, animated: true)
+        }
+        
+        Nastavíme hodnoty sloupců v objektu settingsPicker tak aby odpovídali uloženým proměnným.
+        settingsPicker.selectRow(id, inComponent: 0, animated: true)
+        settingsPicker.selectRow(idd, inComponent: 1, animated: true)
+        */
     }
 }
     
