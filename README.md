@@ -29,7 +29,7 @@ Podpora tmavého a světlého režimu
     <td><img src="https://drive.google.com/uc?export=view&id=1kH2s3Q23yYIj2okKK6QEVRo_e2QK4hwH" width=160></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1JDPyregIgw7OKrpEX-oSZ_saBV4GLsVl" width=160></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1sXyv1iJSfWUXb5r4WTZB2A60HK0Y2dny" width=160></td>
-    <td><img src="https://drive.google.com/uc?export=view&id=1sXyv1iJSfWUXb5r4WTZB2A60HK0Y2dny4_TN6qitqP9HR" width=160></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1dPcQhUmdPMkxbNiYYHk0DmG1oxEMy6hU" width=160></td>
   </tr>
  </table>
 
