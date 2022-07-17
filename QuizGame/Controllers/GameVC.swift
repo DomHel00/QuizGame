@@ -244,8 +244,8 @@ final class GameVC: UIViewController {
             questionIndexLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             questionIndexLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
             
-            questionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            questionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            questionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            questionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             questionTextView.topAnchor.constraint(equalTo: questionIndexLabel.bottomAnchor, constant: 20),
             questionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
             
