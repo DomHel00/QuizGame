@@ -84,14 +84,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		E9675B5027E64EA8004FC767 /* Utilitys */ = {
+		E9675B5027E64EA8004FC767 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				E9675B4D27E648E9004FC767 /* AppUtility.swift */,
 				E9B054F12736856F00139A3B /* InternetMonitor.swift */,
 				E9CC54A72790287B00807E20 /* UserDefaultsStorage.swift */,
 			);
-			path = Utilitys;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E9675B5127E64F97004FC767 /* Views */ = {
@@ -161,7 +161,7 @@
 				E9675B4F27E64E63004FC767 /* Controllers */,
 				E9B795832793557700E894EC /* Providers */,
 				E9675B5127E64F97004FC767 /* Views */,
-				E9675B5027E64EA8004FC767 /* Utilitys */,
+				E9675B5027E64EA8004FC767 /* Utilities */,
 				E9675B5227E64FA3004FC767 /* Other */,
 				E9B795842793558800E894EC /* Storyboards */,
 				E9FD41592726783A008F07B1 /* Assets.xcassets */,
