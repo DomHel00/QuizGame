@@ -6,9 +6,9 @@ Aplikace plná kvízů pro prohloubení Vašich vědomostí.
 ## Funkce
 * 20+ různých kategorií kvízů
 * Možnost nastavení obtížnosti a počtu otázek
-Indikace správné či špatné odpovědi
-Souhrné hodnocení Vašeho výsledku
-Podpora tmavého a světlého režimu
+* Indikace správné či špatné odpovědi
+* Souhrné hodnocení Vašeho výsledku
+* Podpora tmavého a světlého režimu
 
 ## Použité API
 * Trivia API
